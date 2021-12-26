@@ -1,15 +1,15 @@
-import React from 'react';
+import React from "react";
 import type { NextPage } from "next";
 import Typography from "@mui/material/Typography";
-import { Grid, Button } from '@mui/material';
-import AppContext from '../AppContext';
+import { Grid, Button } from "@mui/material";
+import AppContext from "../AppContext";
 
 const Home: NextPage = () => {
-  const {isOpen, toggleSidebar, rawData} = React.useContext(AppContext);
+  const { isOpen, toggleSidebar, rawData } = React.useContext(AppContext);
 
   React.useEffect(() => {
-    toggleSidebar()
-  }, []);
+    toggleSidebar();
+  }, [toggleSidebar]);
 
   return (
     <Grid
@@ -18,7 +18,7 @@ const Home: NextPage = () => {
       direction="column"
       alignItems="center"
       justifyContent="center"
-      style={{ minHeight: '100vh' }}
+      style={{ minHeight: "100vh" }}
     >
       <Grid item xs={3}>
         <Typography variant="h2" gutterBottom>
@@ -26,14 +26,13 @@ const Home: NextPage = () => {
         </Typography>
         <Button
           onClick={() => {
-            console.log(rawData)
+            console.log(rawData);
           }}
         >
           Click me
         </Button>
-
-      </Grid>   
-    </Grid> 
+      </Grid>
+    </Grid>
   );
 };
 

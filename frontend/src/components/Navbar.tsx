@@ -1,6 +1,13 @@
 import * as React from "react";
-import { Typography, AppBar, Box, Toolbar, IconButton, Button } from "@mui/material"
-import { Menu } from '@mui/icons-material';
+import {
+  Typography,
+  AppBar,
+  Box,
+  Toolbar,
+  IconButton,
+  Button,
+} from "@mui/material";
+import { Menu } from "@mui/icons-material";
 
 export const Navbar = () => {
   return (
@@ -23,4 +30,4 @@ export const Navbar = () => {
       </AppBar>
     </Box>
   );
-}
+};

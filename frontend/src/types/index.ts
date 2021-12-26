@@ -7,7 +7,7 @@ export type DebtToEarningsData = {
     cipCode :string;
     cipName :string;
     credentialLevel :string;
-    debtToEarningsAnnualRate :integer;
-    meanAnnualEarningsFromSsa :integer;
-    medianAnnualEarningsfromSsa :integer;
+    debtToEarningsAnnualRate :number;
+    meanAnnualEarningsFromSsa :number;
+    medianAnnualEarningsfromSsa :number;
     }
