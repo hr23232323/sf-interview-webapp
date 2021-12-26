@@ -1,9 +1,16 @@
-import * as React from "react";
+import React from 'react';
 import type { NextPage } from "next";
 import Typography from "@mui/material/Typography";
-import { Grid } from '@mui/material';
+import { Grid, Button } from '@mui/material';
+import AppContext from '../AppContext';
 
 const Home: NextPage = () => {
+  const {isOpen, toggleSidebar, rawData} = React.useContext(AppContext);
+
+  React.useEffect(() => {
+    toggleSidebar()
+  }, []);
+
   return (
     <Grid
       container
@@ -17,6 +24,14 @@ const Home: NextPage = () => {
         <Typography variant="h2" gutterBottom>
           Coming soon!
         </Typography>
+        <Button
+          onClick={() => {
+            console.log(rawData)
+          }}
+        >
+          Click me
+        </Button>
+
       </Grid>   
     </Grid> 
   );
