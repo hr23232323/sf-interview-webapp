@@ -20,7 +20,7 @@ export default class MyDocument extends Document {
             href="https://fonts.googleapis.com/icon?family=Material+Icons"
           />
         </Head>
-        <body>
+        <body style={{ minHeight: "100vh" }}>
           <Main />
           <NextScript />
         </body>

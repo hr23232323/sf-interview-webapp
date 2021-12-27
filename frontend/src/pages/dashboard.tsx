@@ -40,23 +40,37 @@ const Dashboard: NextPage = () => {
     return <></>;
   }
 
-  const rows: GridRowsProp = rawData;
-  console.log(rows);
-
   return (
-    <Grid container direction="column">
-      <Navbar />
-      <Grid
-        container
-        direction="row"
-        alignItems="center"
-        justifyContent="center"
-        style={{ height: "70vh" }}
-        spacing={5}
-      >
-        <Grid item xs={11} style={{ height: "80%" }}>
-          <DataGrid rows={rows} columns={columns} />
+    <Grid
+      container
+      direction="column"
+      spacing={0}
+      style={{ minHeight: "100vh" }}
+    >
+      <Grid item xs={2}>
+        <Navbar />
+      </Grid>
+      <Grid item container direction="row" style={{ height: "80vh" }}>
+        <Grid item xs={1} />
+        <Grid
+          item
+          container
+          xs={10}
+          direction="column"
+          alignItems="center"
+          justifyContent="center"
+          style={{ height: "100%", width: "100%" }}
+        >
+          <Grid item xs={1} />
+          <Grid item container xs={11} style={{ width: "100%" }}>
+            <DataGrid
+              rows={rawData}
+              columns={columns}
+              style={{ width: "100%" }}
+            />
+          </Grid>
         </Grid>
+        <Grid item xs={1} />
       </Grid>
     </Grid>
   );
