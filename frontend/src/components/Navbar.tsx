@@ -11,7 +11,7 @@ import { FilterAlt } from "@mui/icons-material";
 import AppContext from "../AppContext";
 
 export const Navbar = () => {
-  const { toggleFilterSidebar } = React.useContext(AppContext);
+  const { toggleFilterDrawer } = React.useContext(AppContext);
   return (
     <Box sx={{ flexGrow: 1 }}>
       <AppBar position="static">
@@ -25,7 +25,7 @@ export const Navbar = () => {
             color="inherit"
             aria-label="menu"
             sx={{ mr: 2 }}
-            onClick={toggleFilterSidebar}
+            onClick={toggleFilterDrawer}
           >
             <FilterAlt />
           </IconButton>

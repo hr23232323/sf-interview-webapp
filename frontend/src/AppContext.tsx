@@ -2,43 +2,60 @@ import React from "react";
 import { useApi } from "./hooks/useApi";
 import { DebtToEarningsData } from "./types";
 
+// Context type for our global app context
 type CtxType = {
-  isFilterSidebarOpen: boolean;
-  toggleFilterSidebar: () => void;
+  isFilterDrawerOpen: boolean;
+  toggleFilterDrawer: () => void;
   rawData: DebtToEarningsData[] | null;
 };
 
+// Initialize appContext with default values
 const AppContext = React.createContext<CtxType>({
-  isFilterSidebarOpen: false,
-  toggleFilterSidebar: () => {},
+  isFilterDrawerOpen: false,
+  toggleFilterDrawer: () => {},
   rawData: null,
 });
 
+// Provider used to make context values available globally
 export const ContextProvider = ({
   children,
 }: {
   children: React.ReactNode;
 }) => {
-  const [isFilterSidebarOpen, setisFilterSidebarOpen] = React.useState(false);
+  // Context variable to store state of filter drawer
+  const [isFilterDrawerOpen, setisFilterDrawerOpen] = React.useState(false);
+
+  // Context variable to store all the data returned by API
   const [rawData, setRawData] = React.useState<DebtToEarningsData[] | null>([]);
+
+  // Context variable to store filtered data
+  const [filteredData, setFilteredData] = React.useState<
+    DebtToEarningsData[] | null
+  >([]);
+
+  // Make call to API to retreive data
   const { isLoading, serverError, apiData } = useApi({
     method: "GET",
     url: "URL",
     body: "BODY",
   });
 
+  // Set up rawData once API Req is complete
   React.useEffect(() => {
-    setRawData(apiData);
+    if (apiData && apiData !== null) {
+      setRawData(apiData);
+      setFilteredData(apiData);
+    }
   }, [apiData]);
 
-  const toggleFilterSidebar = () => {
-    //console.log(isFilterSidebarOpen);
-    setisFilterSidebarOpen(!isFilterSidebarOpen);
+  // Method to change state of filter drawer
+  const toggleFilterDrawer = () => {
+    setisFilterDrawerOpen(!isFilterDrawerOpen);
   };
 
   return (
     <AppContext.Provider
-      value={{ isFilterSidebarOpen, toggleFilterSidebar, rawData }}
+      value={{ isFilterDrawerOpen, toggleFilterDrawer, rawData }}
     >
       {children}
     </AppContext.Provider>

@@ -16,7 +16,7 @@ const DrawerHeader = styled("div")(({ theme }) => ({
   justifyContent: "flex-start",
 }));
 
-const DrawerBody = styled("div")(({ theme }) => ({
+const DrawerBody = styled(Grid)(({ theme }) => ({
   display: "flex",
   alignItems: "flex-start",
   padding: theme.spacing(2, 1),
@@ -27,7 +27,7 @@ const DrawerBody = styled("div")(({ theme }) => ({
 }));
 
 export const FilterDrawer = () => {
-  const { isFilterSidebarOpen, toggleFilterSidebar } =
+  const { isFilterDrawerOpen, toggleFilterDrawer } =
     React.useContext(AppContext);
   const theme = useTheme();
 
@@ -35,7 +35,7 @@ export const FilterDrawer = () => {
     <Drawer
       variant="temporary"
       anchor="right"
-      open={isFilterSidebarOpen}
+      open={isFilterDrawerOpen}
       sx={{
         width: drawerWidth,
         flexShrink: 0,
@@ -45,7 +45,7 @@ export const FilterDrawer = () => {
       }}
     >
       <DrawerHeader>
-        <IconButton onClick={toggleFilterSidebar}>
+        <IconButton onClick={toggleFilterDrawer}>
           {theme.direction === "rtl" ? <ChevronLeft /> : <ChevronRight />}
         </IconButton>
         <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
@@ -53,10 +53,24 @@ export const FilterDrawer = () => {
         </Typography>
       </DrawerHeader>
       <Divider />
-      <DrawerBody>
-        <Grid container direction="column">
-          <Typography variant="caption">Search by Institution Name</Typography>
-          <SearchBar />
+      <DrawerBody container direction="column">
+        <Grid
+          container
+          direction="column"
+          sx={{
+            p: 2,
+          }}
+        >
+          <Typography variant="caption">Filter by Institution Type</Typography>
+        </Grid>
+        <Grid
+          container
+          direction="column"
+          sx={{
+            p: 2,
+          }}
+        >
+          <Typography variant="caption">Filter by Credential Level</Typography>
         </Grid>
       </DrawerBody>
     </Drawer>

@@ -6,6 +6,7 @@ import AppContext from "../AppContext";
 import { DataGrid, GridRowsProp, GridColDef } from "@mui/x-data-grid";
 import { DebtToEarningsData } from "../types";
 import { Navbar } from "../components/Navbar";
+import { SearchBar } from "../components/SearchBar";
 import { FilterDrawer } from "../components/FilterDrawer";
 
 const columns: GridColDef[] = [
@@ -35,7 +36,7 @@ const columns: GridColDef[] = [
 ];
 
 const Dashboard: NextPage = () => {
-  const { rawData, isFilterSidebarOpen, toggleFilterSidebar } =
+  const { rawData, isFilterDrawerOpen, toggleFilterDrawer } =
     React.useContext(AppContext);
 
   if (!rawData) {
@@ -53,6 +54,9 @@ const Dashboard: NextPage = () => {
       <Grid item xs={2}>
         <Navbar />
       </Grid>
+      <Container item container direction="row" xs={2}>
+        <SearchBar />
+      </Container>
       <Grid item container direction="row" style={{ height: "80vh" }}>
         <Grid item xs={1} />
         <Grid
