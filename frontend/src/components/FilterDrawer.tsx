@@ -1,9 +1,9 @@
 import * as React from "react";
-import { Drawer, Divider, IconButton, Typography } from "@mui/material";
-import { Menu } from "@mui/icons-material";
+import { Drawer, Divider, IconButton, Typography, Grid } from "@mui/material";
 import { styled, useTheme } from "@mui/material/styles";
 import { ChevronLeft, ChevronRight } from "@mui/icons-material";
 import AppContext from "../AppContext";
+import { SearchBar } from "../components/SearchBar";
 
 const drawerWidth = 400;
 
@@ -14,6 +14,16 @@ const DrawerHeader = styled("div")(({ theme }) => ({
   // necessary for content to be below app bar
   ...theme.mixins.toolbar,
   justifyContent: "flex-start",
+}));
+
+const DrawerBody = styled("div")(({ theme }) => ({
+  display: "flex",
+  alignItems: "flex-start",
+  padding: theme.spacing(2, 1),
+  // necessary for content to be below app bar
+  ...theme.mixins.toolbar,
+  justifyContent: "flex-start",
+  marginLeft: theme.spacing(2),
 }));
 
 export const FilterDrawer = () => {
@@ -43,6 +53,12 @@ export const FilterDrawer = () => {
         </Typography>
       </DrawerHeader>
       <Divider />
+      <DrawerBody>
+        <Grid container direction="column">
+          <Typography variant="caption">Search by Institution Name</Typography>
+          <SearchBar />
+        </Grid>
+      </DrawerBody>
     </Drawer>
   );
 };
