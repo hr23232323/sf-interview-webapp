@@ -107,7 +107,7 @@ export const SearchBar = () => {
             sx={{
               padding: theme.spacing(1, 0),
             }}
-            color="neutral"
+            color="success"
           >
             Search
           </Button>

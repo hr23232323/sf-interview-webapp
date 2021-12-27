@@ -1,7 +1,7 @@
 import React from "react";
 import type { NextPage } from "next";
 import Typography from "@mui/material/Typography";
-import { Grid, Button, Container } from "@mui/material";
+import { Grid, Button } from "@mui/material";
 import AppContext from "../AppContext";
 import { DataGrid, GridRowsProp, GridColDef } from "@mui/x-data-grid";
 import { DebtToEarningsData } from "../types";
@@ -54,9 +54,9 @@ const Dashboard: NextPage = () => {
       <Grid item xs={2}>
         <Navbar />
       </Grid>
-      <Container item container direction="row" xs={2}>
+      <Grid item container direction="row" xs={2}>
         <SearchBar />
-      </Container>
+      </Grid>
       <Grid item container direction="row" style={{ height: "80vh" }}>
         <Grid item xs={1} />
         <Grid
