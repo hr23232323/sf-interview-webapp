@@ -7,25 +7,28 @@ import {
   IconButton,
   Button,
 } from "@mui/material";
-import { Menu } from "@mui/icons-material";
+import { FilterAlt } from "@mui/icons-material";
+import AppContext from "../AppContext";
 
 export const Navbar = () => {
+  const { toggleFilterSidebar } = React.useContext(AppContext);
   return (
     <Box sx={{ flexGrow: 1 }}>
       <AppBar position="static">
         <Toolbar>
+          <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
+            Debt-to-Earnings Dashboard
+          </Typography>
           <IconButton
             size="large"
             edge="start"
             color="inherit"
             aria-label="menu"
             sx={{ mr: 2 }}
+            onClick={toggleFilterSidebar}
           >
-            <Menu />
+            <FilterAlt />
           </IconButton>
-          <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
-            Debt-to-Earnings Dashboard
-          </Typography>
         </Toolbar>
       </AppBar>
     </Box>

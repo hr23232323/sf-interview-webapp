@@ -5,11 +5,7 @@ import { Grid, Button } from "@mui/material";
 import AppContext from "../AppContext";
 
 const Home: NextPage = () => {
-  const { isOpen, toggleSidebar, rawData } = React.useContext(AppContext);
-
-  React.useEffect(() => {
-    toggleSidebar();
-  }, [toggleSidebar]);
+  const { rawData } = React.useContext(AppContext);
 
   return (
     <Grid

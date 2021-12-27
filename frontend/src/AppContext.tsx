@@ -3,14 +3,14 @@ import { useApi } from "./hooks/useApi";
 import { DebtToEarningsData } from "./types";
 
 type CtxType = {
-  isOpen: boolean;
-  toggleSidebar: () => void;
+  isFilterSidebarOpen: boolean;
+  toggleFilterSidebar: () => void;
   rawData: DebtToEarningsData[] | null;
 };
 
 const AppContext = React.createContext<CtxType>({
-  isOpen: false,
-  toggleSidebar: () => {},
+  isFilterSidebarOpen: false,
+  toggleFilterSidebar: () => {},
   rawData: null,
 });
 
@@ -19,7 +19,7 @@ export const ContextProvider = ({
 }: {
   children: React.ReactNode;
 }) => {
-  const [isOpen, setIsOpen] = React.useState(false);
+  const [isFilterSidebarOpen, setisFilterSidebarOpen] = React.useState(false);
   const [rawData, setRawData] = React.useState<DebtToEarningsData[] | null>([]);
   const { isLoading, serverError, apiData } = useApi({
     method: "GET",
@@ -31,12 +31,15 @@ export const ContextProvider = ({
     setRawData(apiData);
   }, [apiData]);
 
-  const toggleSidebar = () => {
-    setIsOpen(!isOpen);
+  const toggleFilterSidebar = () => {
+    //console.log(isFilterSidebarOpen);
+    setisFilterSidebarOpen(!isFilterSidebarOpen);
   };
 
   return (
-    <AppContext.Provider value={{ isOpen, toggleSidebar, rawData }}>
+    <AppContext.Provider
+      value={{ isFilterSidebarOpen, toggleFilterSidebar, rawData }}
+    >
       {children}
     </AppContext.Provider>
   );
