@@ -10,4 +10,15 @@ export type DebtToEarningsData = {
     debtToEarningsAnnualRate :number;
     meanAnnualEarningsFromSsa :number;
     medianAnnualEarningsfromSsa :number;
-    }
+    };
+
+export enum FilterableProperties {
+    INSTITUTIONTYPE = "institutionType",
+    CREDENTIALLEVEL = "credentialLevel",
+}
+
+export type Filter = {
+    value : string;
+    propertyName : FilterableProperties;
+    findFunction : Function
+}

@@ -1,5 +1,6 @@
 import React from "react";
 import { DataGrid, GridRowsProp, GridColDef } from "@mui/x-data-grid";
+import { DebtToEarningsData } from "../types";
 
 const columns: GridColDef[] = [
   { field: "institutionName", headerName: "Institution Name", width: 150 },
@@ -27,6 +28,6 @@ const columns: GridColDef[] = [
   },
 ];
 
-export const DataTable = ({ data }) => {
+export const DataTable = ({ data }: { data: DebtToEarningsData[] }) => {
   return <DataGrid rows={data} columns={columns} style={{ width: "100%" }} />;
 };

@@ -4,6 +4,12 @@ import { styled, useTheme } from "@mui/material/styles";
 import { ChevronLeft, ChevronRight } from "@mui/icons-material";
 import AppContext from "../AppContext";
 import { SearchBar } from "../components/SearchBar";
+import { CheckboxGroup } from "../components/CheckboxGroup";
+import {
+  uniqueInstituteTypes,
+  uniqueCredentialLevels,
+} from "../hooks/filterData";
+import { FilterableProperties } from "../types";
 
 const drawerWidth = 400;
 
@@ -61,16 +67,21 @@ export const FilterDrawer = () => {
             p: 2,
           }}
         >
-          <Typography variant="caption">Filter by Institution Type</Typography>
-        </Grid>
-        <Grid
-          container
-          direction="column"
-          sx={{
-            p: 2,
-          }}
-        >
-          <Typography variant="caption">Filter by Credential Level</Typography>
+          <CheckboxGroup
+            label="Filter by Institute Types"
+            options={uniqueInstituteTypes}
+            propertyName={FilterableProperties.INSTITUTIONTYPE}
+          />
+          <Grid
+            sx={{
+              p: 2,
+            }}
+          />
+          <CheckboxGroup
+            label="Filter by Credential Level"
+            options={uniqueCredentialLevels}
+            propertyName={FilterableProperties.CREDENTIALLEVEL}
+          />
         </Grid>
       </DrawerBody>
     </Drawer>

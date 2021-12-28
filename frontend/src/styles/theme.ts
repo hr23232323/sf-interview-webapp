@@ -13,7 +13,7 @@ const theme = createTheme({
     error: {
       main: red.A400,
     },
-    default: {
+    success: {
       main: '#ef5350',
       contrastText: '#fff',
     },
