@@ -94,9 +94,11 @@ if(ENV == "local"):
         }
     }
 else:
+    if os.getenv("DATABASE_URL", None) is None:
+        raise Exception("DATABASE_URL environment variable not defined")
     DATABASES = {
-            "default": dj_database_url.parse(os.environ.get("DATABASE_URL")),
-        }
+        "default": dj_database_url.parse(os.environ.get("DATABASE_URL")),
+    }
 
 
 # Password validation
