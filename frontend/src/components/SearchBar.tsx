@@ -58,15 +58,21 @@ export const SearchBar = () => {
         sx={{
           flexGrow: 1,
           borderRadius: theme.shape.borderRadius,
-          backgroundColor: theme.palette.secondary.main,
+          backgroundColor: theme.palette.primary.main,
           padding: theme.spacing(2, 2, 3, 2),
         }}
       >
         <Grid item container direction="column" xs={5} p={1}>
-          <Typography variant="caption">Search by Institution Name</Typography>
+          <Typography variant="caption" color={theme.palette.common.white}>
+            Search by Institution Name
+          </Typography>
           <Search>
             <SearchIconWrapper>
-              <SearchIcon />
+              <SearchIcon
+                sx={{
+                  color: theme.palette.common.white,
+                }}
+              />
             </SearchIconWrapper>
             <StyledInputBase
               placeholder="Search…"
@@ -79,10 +85,16 @@ export const SearchBar = () => {
           </Search>
         </Grid>
         <Grid item container direction="column" xs={5} p={1}>
-          <Typography variant="caption">Search by Zip Code</Typography>
+          <Typography variant="caption" color={theme.palette.common.white}>
+            Search by Zip Code
+          </Typography>
           <Search>
             <SearchIconWrapper>
-              <FmdGoodIcon />
+              <FmdGoodIcon
+                sx={{
+                  color: theme.palette.common.white,
+                }}
+              />
             </SearchIconWrapper>
             <StyledInputBase
               placeholder="Search…"
@@ -107,7 +119,7 @@ export const SearchBar = () => {
             sx={{
               padding: theme.spacing(1, 0),
             }}
-            color="success"
+            color="default"
           >
             Search
           </Button>

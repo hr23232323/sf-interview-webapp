@@ -8,13 +8,13 @@ const theme = createTheme({
       main: '#00aff0',
     },
     secondary: {
-      main: '#efb2b1',
+      main: '#ef5350',
     },
     error: {
       main: red.A400,
     },
-    success: {
-      main: '#00aff0',
+    default: {
+      main: '#ef5350',
       contrastText: '#fff',
     },
   },

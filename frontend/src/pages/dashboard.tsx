@@ -3,37 +3,11 @@ import type { NextPage } from "next";
 import Typography from "@mui/material/Typography";
 import { Grid, Button } from "@mui/material";
 import AppContext from "../AppContext";
-import { DataGrid, GridRowsProp, GridColDef } from "@mui/x-data-grid";
 import { DebtToEarningsData } from "../types";
 import { Navbar } from "../components/Navbar";
 import { SearchBar } from "../components/SearchBar";
 import { FilterDrawer } from "../components/FilterDrawer";
-
-const columns: GridColDef[] = [
-  { field: "institutionName", headerName: "Institution Name", width: 150 },
-  { field: "city", headerName: "City", width: 150 },
-  { field: "state", headerName: "State", width: 100 },
-  { field: "zip", headerName: "Zip", width: 150 },
-  { field: "institutionType", headerName: "Institution Type", width: 150 },
-  { field: "cipCode", headerName: "CIP Code", width: 150 },
-  { field: "cipName", headerName: "CIP Name", width: 150 },
-  { field: "credentialLevel", headerName: "Credential Level", width: 150 },
-  {
-    field: "debtToEarningsAnnualRate",
-    headerName: "Debt-To-Earnings Annual Rate",
-    width: 150,
-  },
-  {
-    field: "meanAnnualEarningsFromSsa",
-    headerName: "Mean Annual Earnings From SSA",
-    width: 150,
-  },
-  {
-    field: "medianAnnualEarningsfromSsa",
-    headerName: "Median Annual Earnings from SSA",
-    width: 150,
-  },
-];
+import { DataTable } from "../components/DataTable";
 
 const Dashboard: NextPage = () => {
   const { rawData, isFilterDrawerOpen, toggleFilterDrawer } =
@@ -70,11 +44,7 @@ const Dashboard: NextPage = () => {
         >
           <Grid item xs={1} />
           <Grid item container xs={11} style={{ width: "100%" }}>
-            <DataGrid
-              rows={rawData}
-              columns={columns}
-              style={{ width: "100%" }}
-            />
+            <DataTable data={rawData} />
           </Grid>
         </Grid>
         <Grid item xs={1} />
