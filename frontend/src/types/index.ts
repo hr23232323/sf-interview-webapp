@@ -20,5 +20,5 @@ export enum FilterableProperties {
 export type Filter = {
     value : string;
     propertyName : FilterableProperties;
-    findFunction : Function
+    findFunction : (dataPoint: DebtToEarningsData) => boolean
 }

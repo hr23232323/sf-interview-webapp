@@ -2,12 +2,9 @@ import React from "react";
 import type { NextPage } from "next";
 import Typography from "@mui/material/Typography";
 import { Grid, Button } from "@mui/material";
-import AppContext from "../AppContext";
 import { ArrowCircleRight } from "@mui/icons-material";
 
 const Home: NextPage = () => {
-  const { rawData } = React.useContext(AppContext);
-
   return (
     <Grid
       container
@@ -31,9 +28,6 @@ const Home: NextPage = () => {
         <Button
           variant="contained"
           color="success"
-          onClick={() => {
-            console.log(rawData);
-          }}
           endIcon={<ArrowCircleRight />}
           href="/dashboard"
         >

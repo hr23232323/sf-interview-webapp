@@ -10,10 +10,10 @@ import { FilterDrawer } from "../components/FilterDrawer";
 import { DataTable } from "../components/DataTable";
 
 const Dashboard: NextPage = () => {
-  const { rawData, isFilterDrawerOpen, toggleFilterDrawer } =
+  const { filteredData, isFilterDrawerOpen, toggleFilterDrawer } =
     React.useContext(AppContext);
 
-  if (!rawData) {
+  if (!filteredData) {
     // Deal with this later
     return <></>;
   }
@@ -44,7 +44,7 @@ const Dashboard: NextPage = () => {
         >
           <Grid item xs={1} />
           <Grid item container xs={11} style={{ width: "100%" }}>
-            <DataTable data={rawData} />
+            <DataTable data={filteredData} />
           </Grid>
         </Grid>
         <Grid item xs={1} />

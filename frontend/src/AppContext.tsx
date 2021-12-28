@@ -6,11 +6,11 @@ import { DebtToEarningsData, FilterableProperties, Filter } from "./types";
 type CtxType = {
   isFilterDrawerOpen: boolean;
   toggleFilterDrawer: () => void;
-  rawData: DebtToEarningsData[] | null;
+  filteredData: DebtToEarningsData[] | null;
   toggleFilter: (
     value: string,
     propertyName: FilterableProperties,
-    findFunction: Function
+    findFunction: (dataPoint: DebtToEarningsData) => boolean
   ) => void;
   filterExists: (value: string, propertyName: FilterableProperties) => boolean;
 };
@@ -19,12 +19,62 @@ type CtxType = {
 const AppContext = React.createContext<CtxType>({
   isFilterDrawerOpen: false,
   toggleFilterDrawer: () => {},
-  rawData: null,
+  filteredData: null,
   toggleFilter: () => {},
   filterExists: () => {
     return false;
   },
 });
+
+// Helper functions to apply filters
+
+const isShownByInstituteType = ({
+  dataPoint,
+  filters,
+}: {
+  dataPoint: DebtToEarningsData;
+  filters: Filter[];
+}) => {
+  const instituteTypeFilters = filters.filter(
+    (filter) => filter.propertyName === FilterableProperties.INSTITUTIONTYPE
+  );
+  if (!instituteTypeFilters.length) return true;
+  return instituteTypeFilters.some((filter) => filter.findFunction(dataPoint));
+};
+
+const isShownByCredentialLevel = ({
+  dataPoint,
+  filters,
+}: {
+  dataPoint: DebtToEarningsData;
+  filters: Filter[];
+}) => {
+  const credentialLevelFilters = filters.filter(
+    (filter) => filter.propertyName === FilterableProperties.CREDENTIALLEVEL
+  );
+  if (!credentialLevelFilters.length) return true;
+  return credentialLevelFilters.some((filter) =>
+    filter.findFunction(dataPoint)
+  );
+};
+
+const applyFilters = ({
+  allData,
+  filters,
+}: {
+  allData: DebtToEarningsData[];
+  filters: Filter[];
+}) => {
+  console.log(allData);
+  return allData.filter((dataPoint) => {
+    const showByInstituteType = isShownByInstituteType({ dataPoint, filters });
+    const showByCredentialLevel = isShownByCredentialLevel({
+      dataPoint,
+      filters,
+    });
+    return showByInstituteType && showByCredentialLevel;
+  });
+};
 
 // Provider used to make context values available globally
 export const ContextProvider = ({
@@ -60,7 +110,7 @@ export const ContextProvider = ({
   const addFilter = (
     value: string,
     propertyName: FilterableProperties,
-    findFunction: Function
+    findFunction: (dataPoint: DebtToEarningsData) => boolean
   ) => {
     setFilters((currentFilters) => [
       ...currentFilters,
@@ -79,7 +129,7 @@ export const ContextProvider = ({
   const toggleFilter = (
     value: string,
     propertyName: FilterableProperties,
-    findFunction: Function
+    findFunction: (dataPoint: DebtToEarningsData) => boolean
   ) => {
     if (filterExists(value, propertyName)) {
       removeFilter.apply(null, [value, propertyName]);
@@ -87,11 +137,6 @@ export const ContextProvider = ({
       addFilter.apply(null, [value, propertyName, findFunction]);
     }
   };
-
-  // For testing
-  React.useEffect(() => {
-    console.log(filters);
-  }, [filters]);
 
   // Make call to API to retreive data
   const { isLoading, serverError, apiData } = useApi({
@@ -108,6 +153,14 @@ export const ContextProvider = ({
     }
   }, [apiData]);
 
+  // Update filtered data whenever filters are updated
+  React.useEffect(() => {
+    if (!rawData || !rawData.length) {
+      return;
+    }
+    setFilteredData(applyFilters({ allData: rawData, filters: filters }));
+  }, [rawData, filters]);
+
   // Method to change state of filter drawer
   const toggleFilterDrawer = () => {
     setisFilterDrawerOpen(!isFilterDrawerOpen);
@@ -118,7 +171,7 @@ export const ContextProvider = ({
       value={{
         isFilterDrawerOpen,
         toggleFilterDrawer,
-        rawData,
+        filteredData,
         toggleFilter,
         filterExists,
       }}
