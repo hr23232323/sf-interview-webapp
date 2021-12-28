@@ -1,6 +1,12 @@
 import React from "react";
 import { useApi } from "./hooks/useApi";
-import { DebtToEarningsData, FilterableProperties, Filter } from "./types";
+import {
+  DebtToEarningsData,
+  FilterableProperties,
+  Filter,
+  UserData,
+} from "./types";
+import { applyFilters } from "./utils/filterHelpers";
 
 // Context type for our global app context
 type CtxType = {
@@ -13,6 +19,10 @@ type CtxType = {
     findFunction: (dataPoint: DebtToEarningsData) => boolean
   ) => void;
   filterExists: (value: string, propertyName: FilterableProperties) => boolean;
+  isUserSignupModalOpen: boolean;
+  closeUserSignupModal: () => void;
+  userData: UserData | null;
+  updateUserData: (name: string, email: string) => void;
 };
 
 // Initialize appContext with default values
@@ -24,57 +34,11 @@ const AppContext = React.createContext<CtxType>({
   filterExists: () => {
     return false;
   },
+  isUserSignupModalOpen: false,
+  closeUserSignupModal: () => {},
+  userData: null,
+  updateUserData: () => {},
 });
-
-// Helper functions to apply filters
-
-const isShownByInstituteType = ({
-  dataPoint,
-  filters,
-}: {
-  dataPoint: DebtToEarningsData;
-  filters: Filter[];
-}) => {
-  const instituteTypeFilters = filters.filter(
-    (filter) => filter.propertyName === FilterableProperties.INSTITUTIONTYPE
-  );
-  if (!instituteTypeFilters.length) return true;
-  return instituteTypeFilters.some((filter) => filter.findFunction(dataPoint));
-};
-
-const isShownByCredentialLevel = ({
-  dataPoint,
-  filters,
-}: {
-  dataPoint: DebtToEarningsData;
-  filters: Filter[];
-}) => {
-  const credentialLevelFilters = filters.filter(
-    (filter) => filter.propertyName === FilterableProperties.CREDENTIALLEVEL
-  );
-  if (!credentialLevelFilters.length) return true;
-  return credentialLevelFilters.some((filter) =>
-    filter.findFunction(dataPoint)
-  );
-};
-
-const applyFilters = ({
-  allData,
-  filters,
-}: {
-  allData: DebtToEarningsData[];
-  filters: Filter[];
-}) => {
-  console.log(allData);
-  return allData.filter((dataPoint) => {
-    const showByInstituteType = isShownByInstituteType({ dataPoint, filters });
-    const showByCredentialLevel = isShownByCredentialLevel({
-      dataPoint,
-      filters,
-    });
-    return showByInstituteType && showByCredentialLevel;
-  });
-};
 
 // Provider used to make context values available globally
 export const ContextProvider = ({
@@ -84,6 +48,13 @@ export const ContextProvider = ({
 }) => {
   // Context variable to store state of filter drawer
   const [isFilterDrawerOpen, setisFilterDrawerOpen] = React.useState(false);
+
+  // Context variable to store state of user signup Modal
+  const [isUserSignupModalOpen, setIsUserSignupModalOpen] =
+    React.useState(false);
+
+  // Context variable to store user data
+  const [userData, setUserData] = React.useState<UserData | null>(null);
 
   // Context variable to store all the data returned by API
   const [rawData, setRawData] = React.useState<DebtToEarningsData[] | null>([]);
@@ -161,6 +132,24 @@ export const ContextProvider = ({
     setFilteredData(applyFilters({ allData: rawData, filters: filters }));
   }, [rawData, filters]);
 
+  React.useEffect(() => {
+    console.log("setting modal to open");
+    setIsUserSignupModalOpen(true);
+  }, []);
+
+  const closeUserSignupModal = () => {
+    setIsUserSignupModalOpen(false);
+  };
+
+  const updateUserData = (name: string, email: string) => {
+    setUserData({ name: name, email: email });
+    closeUserSignupModal();
+  };
+
+  React.useEffect(() => {
+    console.log(userData);
+  }, [userData]);
+
   // Method to change state of filter drawer
   const toggleFilterDrawer = () => {
     setisFilterDrawerOpen(!isFilterDrawerOpen);
@@ -174,6 +163,10 @@ export const ContextProvider = ({
         filteredData,
         toggleFilter,
         filterExists,
+        isUserSignupModalOpen,
+        closeUserSignupModal,
+        userData,
+        updateUserData,
       }}
     >
       {children}

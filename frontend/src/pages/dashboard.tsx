@@ -1,17 +1,23 @@
 import React from "react";
 import type { NextPage } from "next";
-import Typography from "@mui/material/Typography";
-import { Grid, Button } from "@mui/material";
+import { Grid, Button, Typography } from "@mui/material";
 import AppContext from "../AppContext";
 import { DebtToEarningsData } from "../types";
 import { Navbar } from "../components/Navbar";
 import { SearchBar } from "../components/SearchBar";
 import { FilterDrawer } from "../components/FilterDrawer";
+import { SignupModal } from "../components/SignupModal";
 import { DataTable } from "../components/DataTable";
 
 const Dashboard: NextPage = () => {
-  const { filteredData, isFilterDrawerOpen, toggleFilterDrawer } =
-    React.useContext(AppContext);
+  const {
+    filteredData,
+    isFilterDrawerOpen,
+    toggleFilterDrawer,
+    isUserSignupModalOpen,
+    closeUserSignupModal,
+    updateUserData,
+  } = React.useContext(AppContext);
 
   if (!filteredData) {
     // Deal with this later
@@ -50,6 +56,11 @@ const Dashboard: NextPage = () => {
         <Grid item xs={1} />
       </Grid>
       <FilterDrawer />
+      <SignupModal
+        isOpen={isUserSignupModalOpen}
+        onClose={closeUserSignupModal}
+        onSubmit={updateUserData}
+      />
     </Grid>
   );
 };

@@ -1,4 +1,4 @@
-import * as React from "react";
+import React from "react";
 import { Drawer, Divider, IconButton, Typography, Grid } from "@mui/material";
 import { styled, useTheme } from "@mui/material/styles";
 import { ChevronLeft, ChevronRight } from "@mui/icons-material";

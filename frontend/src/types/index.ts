@@ -22,3 +22,8 @@ export type Filter = {
     propertyName : FilterableProperties;
     findFunction : (dataPoint: DebtToEarningsData) => boolean
 }
+
+export type UserData = {
+    name: string;
+    email: string;
+}
