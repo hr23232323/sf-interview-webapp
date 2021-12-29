@@ -10,6 +10,6 @@ class StudentSerializer(serializers.HyperlinkedModelSerializer):
 class DebtToEarningsDataSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model= DebtToEarningsData
-        fields=('institutionName', 'city', 'state', 'zip', 
+        fields=('id', 'institutionName', 'city', 'state', 'zip', 
         'institutionType', 'cipCode', 'cipName', 'credentialLevel', 
         'debtToEarningsAnnualRate','meanAnnualEarningsFromSsa','medianAnnualEarningsfromSsa')
