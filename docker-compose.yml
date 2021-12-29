@@ -1,0 +1,11 @@
+version: "3.9"
+
+services:
+  web:
+    build: .
+    command: pipenv run python manage.py runserver 0.0.0.0:8000
+    container_name: django_web
+    environment:
+      - DATABASE_URL
+    ports:
+      - "8000:8000"
