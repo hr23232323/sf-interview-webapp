@@ -5,6 +5,7 @@ import {
   Search as SearchIcon,
   FmdGood as FmdGoodIcon,
 } from "@mui/icons-material";
+import AppContext from "../AppContext";
 
 const Search = styled("div")(({ theme }) => ({
   position: "relative",
@@ -39,6 +40,14 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 
 export const SearchBar = () => {
   const theme = useTheme();
+  const { updateGetUrl } = React.useContext(AppContext);
+  const [instituteName, setInstituteName] = React.useState("");
+  const [zipCode, setZipCode] = React.useState("");
+
+  React.useEffect(() => {
+    updateGetUrl(instituteName, zipCode);
+  }, [instituteName, zipCode, updateGetUrl]);
+
   return (
     <Grid
       container
@@ -62,6 +71,7 @@ export const SearchBar = () => {
           padding: theme.spacing(2, 2, 3, 2),
         }}
       >
+        <Grid item xs={1} />
         <Grid item container direction="column" xs={5} p={1}>
           <Typography variant="caption" color={theme.palette.common.white}>
             Search by Institution Name
@@ -75,11 +85,14 @@ export const SearchBar = () => {
               />
             </SearchIconWrapper>
             <StyledInputBase
-              placeholder="Search…"
+              placeholder="Institute Name…"
               inputProps={{ "aria-label": "search" }}
               sx={{
                 border: 1,
                 borderColor: alpha(theme.palette.common.white, 0.5),
+              }}
+              onChange={(e) => {
+                setInstituteName(e.target.value);
               }}
             />
           </Search>
@@ -97,33 +110,20 @@ export const SearchBar = () => {
               />
             </SearchIconWrapper>
             <StyledInputBase
-              placeholder="Search…"
+              placeholder="Zip…"
               inputProps={{ "aria-label": "search" }}
               sx={{
                 border: 1,
                 borderColor: alpha(theme.palette.common.white, 0.5),
               }}
+              onChange={(e) => {
+                setZipCode(e.target.value);
+              }}
             />
           </Search>
         </Grid>
-        <Grid
-          item
-          container
-          direction="column"
-          justifyContent="flex-end"
-          xs={2}
-          p={1}
-        >
-          <Button
-            variant="contained"
-            sx={{
-              padding: theme.spacing(1, 0),
-            }}
-            color="success"
-          >
-            Search
-          </Button>
-        </Grid>
+
+        <Grid item xs={1} />
       </Grid>
       <Grid item xs={2} />
     </Grid>

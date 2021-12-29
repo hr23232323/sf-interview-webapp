@@ -37,13 +37,13 @@ const isShownByCredentialLevel = ({
 
 // Exported function to apply filters to data
 export const applyFilters = ({
-  allData,
+  rawData,
   filters,
 }: {
-  allData: DebtToEarningsData[];
+  rawData: DebtToEarningsData[];
   filters: Filter[];
 }) => {
-  return allData.filter((dataPoint) => {
+  return rawData.filter((dataPoint) => {
     const showByInstituteType = isShownByInstituteType({ dataPoint, filters });
     const showByCredentialLevel = isShownByCredentialLevel({
       dataPoint,

@@ -59,13 +59,16 @@ export const SignupModal = ({
           />
         </DialogContent>
         <DialogActions>
-          <Button onClick={onClose}>Cancel</Button>
           <Button
+            variant="contained"
             onClick={() => {
               onSubmit(userName, userEmail);
             }}
           >
-            Subscribe
+            Sign up
+          </Button>
+          <Button color="error" onClick={onClose}>
+            Cancel
           </Button>
         </DialogActions>
       </Dialog>

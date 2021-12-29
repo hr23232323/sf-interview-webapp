@@ -11,15 +11,15 @@ import { DataTable } from "../components/DataTable";
 
 const Dashboard: NextPage = () => {
   const {
-    filteredData,
     isFilterDrawerOpen,
     toggleFilterDrawer,
     isUserSignupModalOpen,
     closeUserSignupModal,
     updateUserData,
+    rawData,
   } = React.useContext(AppContext);
 
-  if (!filteredData) {
+  if (!rawData) {
     // Deal with this later
     return <></>;
   }
@@ -50,7 +50,7 @@ const Dashboard: NextPage = () => {
         >
           <Grid item xs={1} />
           <Grid item container xs={11} style={{ width: "100%" }}>
-            <DataTable data={filteredData} />
+            <DataTable data={rawData} />
           </Grid>
         </Grid>
         <Grid item xs={1} />
