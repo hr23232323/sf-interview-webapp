@@ -14,12 +14,6 @@ from pathlib import Path
 import os
 import dj_database_url
 
-from dotenv import load_dotenv
-load_dotenv()
-
-# Context
-ENV = os.getenv('ENV')
-
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -86,7 +80,7 @@ WSGI_APPLICATION = 'sf_webapp_api.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/4.0/ref/settings/#databases
 
-if(ENV == "local"):
+'''if(ENV == "local"):
     DATABASES = {
         'default': {
             'ENGINE': 'django.db.backends.sqlite3',
@@ -98,7 +92,14 @@ else:
         raise Exception("DATABASE_URL environment variable not defined")
     DATABASES = {
         "default": dj_database_url.parse(os.environ.get("DATABASE_URL")),
-    }
+    }'''
+
+# NOTE: NOT SECURE - doing for POC only
+DATABASES = {
+    "default": dj_database_url.parse("postgresql://db:bD3vi3yeIqV1cHYJ@app-aac75b84-8be3-49c6-9ba3-61b3d2605875-do-user-8225718-0.b.db.ondigitalocean.com:25060/db?sslmode=require"),
+}
+
+    
 
 
 # Password validation
