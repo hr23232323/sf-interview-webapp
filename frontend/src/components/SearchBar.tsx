@@ -73,7 +73,11 @@ export const SearchBar = () => {
       >
         <Grid item xs={1} />
         <Grid item container direction="column" xs={5} p={1}>
-          <Typography variant="caption" color={theme.palette.common.white}>
+          <Typography
+            variant="caption"
+            color={theme.palette.common.white}
+            sx={{ display: { xs: "none", md: "flex" } }}
+          >
             Search by Institution Name
           </Typography>
           <Search>
@@ -98,7 +102,11 @@ export const SearchBar = () => {
           </Search>
         </Grid>
         <Grid item container direction="column" xs={5} p={1}>
-          <Typography variant="caption" color={theme.palette.common.white}>
+          <Typography
+            variant="caption"
+            color={theme.palette.common.white}
+            sx={{ display: { xs: "none", md: "flex" } }}
+          >
             Search by Zip Code
           </Typography>
           <Search>

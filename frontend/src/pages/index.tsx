@@ -34,7 +34,13 @@ const Home: NextPage = () => {
       <Grid item xs={2}>
         <Navbar />
       </Grid>
-      <Grid item container direction="row" xs={2}>
+      <Grid
+        item
+        container
+        direction="row"
+        xs={2}
+        sx={{ display: { xs: "none", sm: "flex" } }}
+      >
         <SearchBar />
       </Grid>
       <Grid item container direction="row" style={{ height: "80vh" }}>
