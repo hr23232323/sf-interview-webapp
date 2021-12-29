@@ -2,7 +2,6 @@ import React from "react";
 import { DebtToEarningsData, FilterableProperties, Filter } from "../types";
 
 // Inspiration - https://betterprogramming.pub/advanced-data-filtering-in-react-5ea2fa3befca
-
 // Helper functions to apply Institute Type filter
 const isShownByInstituteType = ({
   dataPoint,

@@ -8,6 +8,8 @@ import {
 import { applyFilters } from "./utils/filterHelpers";
 import axios from "axios";
 
+// For ease.
+//Ideally, this (and all other URL related func/constants should be in a different file)
 const BASE_API_URL = "https://sf-interview-webapp-h62h8.ondigitalocean.app";
 
 // Context type for our global app context
@@ -50,30 +52,17 @@ export const ContextProvider = ({
 }: {
   children: React.ReactNode;
 }) => {
-  // Context variable to store state of filter drawer
+  // Context variables to store app state
   const [isFilterDrawerOpen, setisFilterDrawerOpen] = React.useState(false);
-
-  // Context variable to store state of user signup Modal
   const [isUserSignupModalOpen, setIsUserSignupModalOpen] =
     React.useState(false);
-
-  // Context variable to store user data
   const [userData, setUserData] = React.useState<UserData | null>(null);
-
-  // Context variable to store all the data returned by API
   const [rawData, setRawData] = React.useState<DebtToEarningsData[] | null>([]);
-
-  // For frontend filtering ONLY (master list of all data)
   const [allData, setAllData] = React.useState<DebtToEarningsData[] | null>([]);
-
-  // Context variable to store all applied filters
   const [filters, setFilters] = React.useState<Filter[]>([]);
-
-  // base path of GET (used for search)
   const [getUrl, setGetUrl] = React.useState(
     `${BASE_API_URL}/debt-to-earnings/`
   );
-
   const [serverError, setServerError] = React.useState(null);
 
   // Filter helper functions
@@ -118,7 +107,7 @@ export const ContextProvider = ({
     }
   };
 
-  // Set up rawData on app start
+  // Set up rawData/AllData whenever GET URL Changes
   React.useEffect(() => {
     axios
       .get(getUrl)
@@ -131,12 +120,12 @@ export const ContextProvider = ({
       });
   }, [getUrl]);
 
-  // open modal on app startup
+  // Open modal on app startup
   React.useEffect(() => {
     setIsUserSignupModalOpen(true);
   }, []);
 
-  // open modal on app startup
+  // Update data if filters state changes
   React.useEffect(() => {
     if (!allData || !allData.length) {
       return;
@@ -144,7 +133,7 @@ export const ContextProvider = ({
     setRawData(applyFilters({ rawData: allData, filters }));
   }, [filters]);
 
-  // display server error
+  // Log server error (Needs to throw error in PROD)
   React.useEffect(() => {
     if (!serverError) {
       return;

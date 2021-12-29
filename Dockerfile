@@ -18,9 +18,3 @@ RUN PIPENV_VENV_IN_PROJECT=1 pipenv install --deploy
 # Copy over remaining files
 COPY ./backend/ .
 
-# port where the Django app runs  
-#EXPOSE 8000  
-
-# start server  (note: pipenv run prefix)
-#CMD pipenv run python manage.py runserver  
-
