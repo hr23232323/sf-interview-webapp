@@ -8,7 +8,7 @@ import {
 import { applyFilters } from "./utils/filterHelpers";
 import axios from "axios";
 
-const BASE_API_URL = "http://0.0.0.0:8000";
+const BASE_API_URL = "https://sf-interview-webapp-h62h8.ondigitalocean.app";
 
 // Context type for our global app context
 type CtxType = {
