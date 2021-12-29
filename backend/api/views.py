@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from rest_framework import viewsets
+from rest_framework import viewsets, filters
 
 from .serializers import StudentSerializer, DebtToEarningsDataSerializer
 from .models import Student, DebtToEarningsData
@@ -11,3 +11,5 @@ class StudentViewSet(viewsets.ModelViewSet):
 class DebtToEarningsDataViewSet(viewsets.ModelViewSet):
     queryset = DebtToEarningsData.objects.all().order_by('institutionName')
     serializer_class = DebtToEarningsDataSerializer
+    filter_backends = [filters.SearchFilter]
+    search_fields = ['institutionName', '^zip']

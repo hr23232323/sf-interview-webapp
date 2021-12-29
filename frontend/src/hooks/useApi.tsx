@@ -4,13 +4,13 @@ import { DebtToEarningsData } from "../types";
 
 type useApiHookParams = {
   method: string;
-  url: string;
+  path: string;
   body: any;
 };
 
 // Custom hook for interacting with out DB
 /* Inspiration: https://dev.to/keyurparalkar/creating-custom-hook-for-fetching-data-in-react-3mo3 */
-export const useApi = ({ method, url, body }: useApiHookParams) => {
+export const useApi = ({ method, path, body }: useApiHookParams) => {
   const [isLoading, setIsLoading] = React.useState(false);
   const [apiData, setApiData] = React.useState<DebtToEarningsData[] | null>(
     null
@@ -18,6 +18,8 @@ export const useApi = ({ method, url, body }: useApiHookParams) => {
   const [serverError, setServerError] = React.useState(null);
 
   React.useEffect(() => {
+    if (!path) return;
+
     setIsLoading(true);
     const fetchData = async () => {
       setApiData(sample_data);
@@ -31,7 +33,7 @@ export const useApi = ({ method, url, body }: useApiHookParams) => {
       try {
         const resp = await axios({
           method: method,
-          url: url,
+          path: path,
           data: body
         });
         const data = await resp?.data;
@@ -45,7 +47,7 @@ export const useApi = ({ method, url, body }: useApiHookParams) => {
     };*/
 
     fetchData();
-  }, [url, method, body]);
+  }, [path, method, body]);
 
   return { isLoading, apiData, serverError };
 };

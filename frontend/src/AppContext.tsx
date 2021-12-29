@@ -112,7 +112,7 @@ export const ContextProvider = ({
   // Make call to API to retreive data
   const { isLoading, serverError, apiData } = useApi({
     method: "GET",
-    url: "URL",
+    path: "PATH",
     body: "BODY",
   });
 
